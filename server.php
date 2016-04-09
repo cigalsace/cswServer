@@ -6,39 +6,29 @@ if ($request == 'getrecords') {
     // Get files from $csw_path
 	$files = getFiles($csw_path);
 	$nb_files = count($files);
-	
+    
+    // Filter files list according to $constraintKeywords if defined
+    if ($constraintKeywords) {
+        $files = filterFiles($files, $xpath['keywords'], $constraintKeywords);
+    }
+    // Filter files list according to $constraintTopicCategories if defined
+    if ($constraintTopicCategories) {
+        $files = filterFiles($files, $xpath['topiccategories'], $constraintTopicCategories);
+    }
+    
 	// Get "constraint" parameter from URL
 	// Format: "constraint=anyText+LIKE+'%ortho%'&"
 	$constraint = get('constraint');
-    
-    // Clean constraint parameter to get search value
-    $search = '';
-	if ($constraint) {
-		preg_match("#.*'%(.*)%'#i", $constraint, $matches);
-		$search = explode('+', $matches[1]);
-	}
 
     // Get XML file content and filter with constraint search value if necessary
-	$keep_files = $files;
 	if ($constraint) {
-        $keep_files = array();
-	    foreach ($files as $file) {
-		    $xml_file = strip_tags(file_get_contents($file['path']));
-		    $xml_file = file_get_contents($file['path']);
-		    echo $xml_file;
-		    $count = 0;
-		    foreach ($search as $s) {
-		        $s = trim($s);
-			    if (stripos($xml_file, $s)) {
-			        $count++;
-			    }
-			}
-			if ($count == count($search)) {
-			    $keep_files[] = $file;
-			}
-		}
+        // Clean constraint parameter and get search value
+		preg_match("#.*(AnyText|Title|Abstract|Subject|Modified|Identifier|Keywords).*'%(.*)%'#i", $constraint, $matches);
+        $type = strtolower($matches[1]);
+        $files = filterFiles($files, $xpath[$type], $matches[2]);
 	}
-	$numberOfRecordsMatched = count($keep_files);
+
+	$numberOfRecordsMatched = count($files);
 
 	// Get "maxrecords" parameter from URL
 	$maxrecords = get('maxrecords');
@@ -47,7 +37,7 @@ if ($request == 'getrecords') {
 	$startposition = get('startposition') - 1;
 	
 	// Nb results
-	$nb_results = count($keep_files) - $startposition;
+	$nb_results = count($files) - $startposition;
 	if ($nb_results > $maxrecords) {
 		$nb_results = $maxrecords;
 	}
@@ -61,8 +51,8 @@ if ($request == 'getrecords') {
 	// Get XML files content
 	$xml_content = '';
 	for ($i = $startposition; $i < $startposition+$maxrecords; $i++) {
-	        if (is_file($keep_files[$i]['path'])) {
-		    $xml_file = file($keep_files[$i]['path']);
+        if (is_file($files[$i]['path'])) {
+		    $xml_file = file($files[$i]['path']);
 		    unset($xml_file[0]);
 		    $xml = implode("\n", $xml_file);
 		    $xml_content .= $xml;

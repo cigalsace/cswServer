@@ -1,12 +1,17 @@
 <?php
+include_once('../config.php');
 include_once('../helpers.php');
 
 // Path of CSW node (directory of XML files)
 $csw_path = '../nodes/node';
 
+// Constraints: define constraints to filter XML
+// $constraintKeywords = "données ouvertes+Alsace"; // Get only the XML files with this keywords
+// $constraintTopicCategories = "imageryBaseMapsEarthCover"; // Get only the XML files with this topic categories
+
 // Configuration of capabilities (GetCapabilities XML response)
 
-// ServiceIdentification 
+// ServiceIdentification
 $ows_Title = 'Titre du flux';
 $ows_Abstract = 'Résumé du flux.';
 $ows_Keywords[] = 'Géoportail';
@@ -36,8 +41,8 @@ $ows_ElectronicMailAddress = 'guillaume.ryckelynck@region-alsace.eu';
 $ows_HoursOfService = '--';
 $ows_ContactInstructions = '--';
 $ows_Role = 'pointOfContact';
-$ows_Get = getPageURL(); // URL of this PHP file 
+$ows_Get = getPageURL(); // URL of this PHP file
 
 include_once('../server.php');
-// include_once('../test.php');
+
 ?>
