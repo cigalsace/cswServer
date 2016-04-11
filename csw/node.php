@@ -5,13 +5,26 @@ include_once('../helpers.php');
 // Path of CSW node (directory of XML files)
 $csw_path = '../nodes/node';
 
-// Constraints: define constraints to filter XML
-// $constraintKeywords = "données ouvertes+Alsace"; // Get only the XML files with this keywords
-// $constraintTopicCategories = "imageryBaseMapsEarthCover"; // Get only the XML files with this topic categories
+// Constraints: define constraints to filter XML (operator is "contains")
+// $constraints['AnyText'] = ''; // Text in all file
+// $constraints['Title'] = '2008'; // Text in title
+// $constraints['Abstract'] = ''; // Text in abstract
+// $constraints['Keywords'] = 'Alsace+données'; // Get only the XML files with this keywords
+// $constraints['TopicCategories'] = 'imageryBaseMapsEarthCover'; // Get only the XML files with this topic categories
+// $constraints['DataExtentDescription'] = ''; // Text in extent description
+// $constraints['DataLanguages'] = ''; // Get only XML files with a specific language. ISO 3 letters language ('eng', 'fre', 'deu', etc.)
+// $constraints['MdLanguage'] = ''; // Get only XML files with a specific language. ISO 3 letters language ('eng', 'fre', 'deu', etc.)
+// $constraints['MdContactsName'] = 'Guillaume'; // Text in metadata contact name
+// $constraints['MdContactsPosition'] = ''; // Text in metadata contact position
+// $constraints['MdContactsOrganism'] = ''; // Text in metadata contact organism
+// $constraints['DataPointOfContactsName'] = ''; // Text in data contact name
+// $constraints['DataPointOfContactsPosition'] = ''; // Text in data contact position
+// $constraints['DataPointOfContactsOrganism'] = ''; // Text in data contact organism
+// $constraints['DataMaintenanceFrequency'] = ''; // Filter according maitenance frequency code
 
 // Configuration of capabilities (GetCapabilities XML response)
 
-// ServiceIdentification
+// ServiceIdentification 
 $ows_Title = 'Titre du flux';
 $ows_Abstract = 'Résumé du flux.';
 $ows_Keywords[] = 'Géoportail';
@@ -41,7 +54,7 @@ $ows_ElectronicMailAddress = 'guillaume.ryckelynck@region-alsace.eu';
 $ows_HoursOfService = '--';
 $ows_ContactInstructions = '--';
 $ows_Role = 'pointOfContact';
-$ows_Get = getPageURL(); // URL of this PHP file
+$ows_Get = getPageURL(); // URL of this PHP file 
 
 include_once('../server.php');
 

@@ -8,19 +8,14 @@ if ($request == 'getrecords') {
 	$nb_files = count($files);
     
     // Filter files list according to $constraintKeywords if defined
-    if ($constraintKeywords) {
-        $files = filterFiles($files, $xpath['keywords'], $constraintKeywords);
-    }
-    // Filter files list according to $constraintTopicCategories if defined
-    if ($constraintTopicCategories) {
-        $files = filterFiles($files, $xpath['topiccategories'], $constraintTopicCategories);
+    foreach ($constraints as $key => $constraint) {
+        $type = strtolower($key);
+        $files = filterFiles($files, $xpath[$type], $constraint);
     }
     
-	// Get "constraint" parameter from URL
+	// Get "constraint" parameter from URL and filter XML files with constraint search value if necessary
 	// Format: "constraint=anyText+LIKE+'%ortho%'&"
 	$constraint = get('constraint');
-
-    // Get XML file content and filter with constraint search value if necessary
 	if ($constraint) {
         // Clean constraint parameter and get search value
 		preg_match("#.*(AnyText|Title|Abstract|Subject|Modified|Identifier|Keywords).*'%(.*)%'#i", $constraint, $matches);

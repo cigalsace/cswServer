@@ -59,33 +59,8 @@ function getPageURL() {
     return $pageURL;
 }
 
-/*
-// Use of regex to filter files
-function filterFiles($files, $regex, $value) {
-    $search = '';
-    $search = explode('+', $value);
-    $keep_files = array();
-    foreach ($files as $file) {
-        $xml_file = file_get_contents($file['path']);
-        $count = 0;
-        foreach ($search as $s) {
-            $reg = str_replace('%value%', $s, $regex);
-            preg_match($reg, $xml_file, $matches);
-            if (count($matches)) {
-                $count++;
-            }
-        }
-        if ($count == count($search)) {
-            $keep_files[] = $file;
-        }
-    }
-    return $keep_files;
-}
-*/
-
 // Use of SimpleXML to filter files
 function filterFiles($files, $xpath, $value) {
-    // $search = '';
     $search = explode('+', $value);
     $keep_files = array();
     foreach ($files as $file) {
