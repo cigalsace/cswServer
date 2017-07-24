@@ -1,4 +1,6 @@
 <?php
+    
+date_default_timezone_set('Europe/Paris');
 
 function get($var, $default=False) {
     $_GET_lower = array_change_key_case($_GET, CASE_LOWER);
@@ -11,7 +13,7 @@ function get($var, $default=False) {
 
 function getFileidentifier($filename) {
     $xpath_fileidentifier = './/gmd:fileIdentifier/gco:CharacterString/text()';
-    $xml = simplexml_load_file($filename);       
+    $xml = simplexml_load_file($filename);
     $namespaces = $xml->getDocNamespaces(true);
     foreach ($namespaces as $key => $value) {
         $xml->registerXPathNamespace($key, $value);
@@ -26,7 +28,7 @@ function getFiles($path, $files = array()){
         $index = count($files) + 1;
         $lstat = lstat($path);
         $files[$index]['mtime'] = date('d/m/Y H:i:s', $lstat['mtime']);
-        $files[$index]['size'] = $lstat[size];
+        $files[$index]['size'] = $lstat['size'];
         $files[$index]['filetype'] = filetype($path);
         $files[$index]['fileext'] = $fileext;
         $files[$index]['path'] = $path;
@@ -47,7 +49,7 @@ function getFiles($path, $files = array()){
 function getPageURL() {
     $pageURL = 'http';
     $requestUrl = strtok($_SERVER["REQUEST_URI"],'?');
-    if ($_SERVER["HTTPS"] == "on") {
+    if (isset($_SERVER["HTTPS"]) AND ($_SERVER["HTTPS"] == "on")) {
         $pageURL .= "s";
     }
     $pageURL .= "://";
@@ -69,7 +71,7 @@ function filterFiles($files, $xpath, $value) {
         $namespaces = $xmlDoc->getDocNamespaces(true);
         foreach ($namespaces as $key=>$value) {
             $xmlDoc->registerXPathNamespace($key, $value);
-        }        
+        }
         $elts = $xmlDoc->xpath($xpath);
         $count = 0;
         foreach ($elts as $elt) {
@@ -85,5 +87,3 @@ function filterFiles($files, $xpath, $value) {
     }
     return $keep_files;
 }
-
-?>

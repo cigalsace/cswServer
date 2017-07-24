@@ -441,4 +441,3 @@ $describerecord_xml = '<csw:DescribeRecordResponse xmlns:csw="http://www.opengis
     </xs:schema>
   </csw:SchemaComponent>
 </csw:DescribeRecordResponse>';
-?>

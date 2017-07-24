@@ -13,12 +13,15 @@ if ($request == 'getrecords') {
         $files = filterFiles($files, $xpath[$type], $constraint);
     }
     
-	// Get "constraint" parameter from URL and filter XML files with constraint search value if necessary
+	// Get "constraint" parameter from URL
 	// Format: "constraint=anyText+LIKE+'%ortho%'&"
 	$constraint = get('constraint');
+
+    // Get XML file content and filter with constraint search value if necessary
 	if ($constraint) {
         // Clean constraint parameter and get search value
-		preg_match("#.*(AnyText|Title|Abstract|Subject|Modified|Identifier|Keywords).*'%(.*)%'#i", $constraint, $matches);
+		// preg_match("#.*(AnyText|Title|Abstract|Subject|Modified|Identifier).*'%(.*)%'#i", $constraint, $matches);
+		preg_match("#.*(AnyText|Title|Abstract|Subject|Modified|Identifier).*'\*(.*)\*'#i", $constraint, $matches);
         $type = strtolower($matches[1]);
         $files = filterFiles($files, $xpath[$type], $matches[2]);
 	}
@@ -36,18 +39,20 @@ if ($request == 'getrecords') {
 	if ($nb_results > $maxrecords) {
 		$nb_results = $maxrecords;
 	}
-	
-	//$nextRecord = $startposition + $maxrecords + 1;
+
 	$nextRecord = $startposition + $nb_results + 1;
-	if ($nextRecord = 1) {
-	    $nextRecord = 0;
-	}
+	// if ($nextRecord = 1) {
+	    // $nextRecord = 0;
+	// }
+    if ($nextRecord > $numberOfRecordsMatched) {
+        $nextRecord = $numberOfRecordsMatched+1;
+    }
 
 	// Get XML files content
 	$xml_content = '';
 	for ($i = $startposition; $i < $startposition+$maxrecords; $i++) {
-        if (is_file($files[$i]['path'])) {
-		    $xml_file = file($files[$i]['path']);
+        if ($i < count($files) AND is_file($files[$i+1]['path'])) {
+		    $xml_file = file($files[$i+1]['path']);
 		    unset($xml_file[0]);
 		    $xml = implode("\n", $xml_file);
 		    $xml_content .= $xml;
@@ -87,7 +92,6 @@ if ($request == 'getrecords') {
 		    $xml .= '<csw:GetRecordByIdResponse xmlns:csw="http://www.opengis.net/cat/csw/2.0.2">';
 		    $xml .= $xml_content;
 		    $xml .= '</csw:GetRecordByIdResponse>';
-		    
 		    header('Content-Type: application/xml; charset=utf-8');
     		echo $xml;
 	    }
@@ -110,8 +114,6 @@ if ($request == 'getrecords') {
 
 } else {
 	// Prameter "request" not exist
-	echo '"Request" parameter is wrong or missing ("getrecords", "getrecordbyid", "getcapabilities" or "describerecord".';
+	echo '"Request" parameter is wrong or missing ("getrecords", "getrecordbyid", "getcapabilities" or "describerecord").';
 	
 }
-
-?>

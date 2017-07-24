@@ -8,7 +8,7 @@ $getcapabilities_xml = '<csw:Capabilities xmlns:csw="http://www.opengis.net/cat/
     foreach ($ows_Keywords as $k):
         $getcapabilities_xml .= '<ows:Keyword>'.$k.'</ows:Keyword>';
     endforeach;
-    $getcapabilities_xml .= '  
+    $getcapabilities_xml .= '
       <ows:Type>'.$ows_Type.'</ows:Type>
     </ows:Keywords>
     <ows:ServiceType>'.$ows_ServiceType.'</ows:ServiceType>
@@ -129,39 +129,39 @@ $getcapabilities_xml = '<csw:Capabilities xmlns:csw="http://www.opengis.net/cat/
         <!--<ows:Value>SOAP</ows:Value>-->
       </ows:Constraint>
       <ows:Constraint name="SupportedISOQueryables">
-        <!--<ows:Value>Operation</ows:Value>
-        <ows:Value>Format</ows:Value>
-        <ows:Value>OrganisationName</ows:Value>
-        <ows:Value>Type</ows:Value>
-        <ows:Value>ServiceType</ows:Value>
-        <ows:Value>DistanceValue</ows:Value>
-        <ows:Value>ResourceLanguage</ows:Value>
-        <ows:Value>RevisionDate</ows:Value>
-        <ows:Value>OperatesOn</ows:Value>
-        <ows:Value>GeographicDescriptionCode</ows:Value>-->
+        <!--<ows:Value>Operation</ows:Value>-->
+        <!--<ows:Value>Format</ows:Value>-->
+        <!--<ows:Value>OrganisationName</ows:Value>-->
+        <!--<ows:Value>Type</ows:Value>-->
+        <!--<ows:Value>ServiceType</ows:Value>-->
+        <!--<ows:Value>DistanceValue</ows:Value>-->
+        <!--<ows:Value>ResourceLanguage</ows:Value>-->
+        <!--<ows:Value>RevisionDate</ows:Value>-->
+        <!--<ows:Value>OperatesOn</ows:Value>-->
+        <!--<ows:Value>GeographicDescriptionCode</ows:Value>-->
         <ows:Value>AnyText</ows:Value>
-        <!--<ows:Value>Modified</ows:Value>
-        <ows:Value>PublicationDate</ows:Value>
-        <ows:Value>ResourceIdentifier</ows:Value>
-        <ows:Value>ParentIdentifier</ows:Value>
-        <ows:Value>Identifier</ows:Value>
-        <ows:Value>CouplingType</ows:Value>
+        <!--<ows:Value>Modified</ows:Value>-->
+        <!--<ows:Value>PublicationDate</ows:Value>-->
+        <!--<ows:Value>ResourceIdentifier</ows:Value>-->
+        <!--<ows:Value>ParentIdentifier</ows:Value>-->
+        <!--<ows:Value>Identifier</ows:Value>-->
+        <!--<ows:Value>CouplingType</ows:Value>-->
         <ows:Value>TopicCategory</ows:Value>
-        <ows:Value>OperatesOnIdentifier</ows:Value>
-        <ows:Value>ServiceTypeVersion</ows:Value>
-        <ows:Value>TempExtent_end</ows:Value>
+        <!--<ows:Value>OperatesOnIdentifier</ows:Value>-->
+        <!--<ows:Value>ServiceTypeVersion</ows:Value>-->
+        <!--<ows:Value>TempExtent_end</ows:Value>-->
         <ows:Value>Subject</ows:Value>
-        <ows:Value>CreationDate</ows:Value>
-        <ows:Value>OperatesOnName</ows:Value>
-        <ows:Value>Title</ows:Value>
-        <ows:Value>DistanceUOM</ows:Value>
-        <ows:Value>Denominator</ows:Value>
-        <ows:Value>AlternateTitle</ows:Value>
-        <ows:Value>Language</ows:Value>
-        <ows:Value>TempExtent_begin</ows:Value>
-        <ows:Value>HasSecurityConstraints</ows:Value>
-        <ows:Value>KeywordType</ows:Value>
-        <ows:Value>Abstract</ows:Value>-->
+        <!--<ows:Value>CreationDate</ows:Value>-->
+        <!--<ows:Value>OperatesOnName</ows:Value>-->
+        <ows:Value>Title</ows:Value>-->
+        <!--<ows:Value>DistanceUOM</ows:Value>-->
+        <!--<ows:Value>Denominator</ows:Value>-->
+        <!--<ows:Value>AlternateTitle</ows:Value>-->
+        <!--<ows:Value>Language</ows:Value>-->
+        <!--<ows:Value>TempExtent_begin</ows:Value>-->
+        <!--<ows:Value>HasSecurityConstraints</ows:Value>-->
+        <!--<ows:Value>KeywordType</ows:Value>-->
+        <ows:Value>Abstract</ows:Value>
       </ows:Constraint>
       <!--
       <ows:Constraint name="AdditionalQueryables">
@@ -373,4 +373,3 @@ $getcapabilities_xml = '<csw:Capabilities xmlns:csw="http://www.opengis.net/cat/
     </ogc:Id_Capabilities>
   </ogc:Filter_Capabilities>
 </csw:Capabilities>';
-?>
