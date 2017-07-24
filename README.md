@@ -35,10 +35,10 @@ Je souhaite créer un noeud appelé "super-node":
 
 ## Démonstration:
 
-GetCapabilities: http://cigalsace.net/cswServer/0.01/csw/node.php?VERSION=2.0.2&SERVICE=CSW&REQUEST=getcapabilities
+GetCapabilities: http://geograndest.net/tools/cswServer/0.07/csw/node.php?VERSION=2.0.2&SERVICE=CSW&REQUEST=getcapabilities
 
-GetRecords: http://cigalsace.net/cswServer/0.01/csw/node.php?request=getrecords&maxrecords=20&startposition=1
+GetRecords: http://geograndest.net/tools/cswServer/0.07/csw/node.php?request=getrecords&maxrecords=20&startposition=1
 
-GetRecordById: http://cigalsace.net/cswServer/0.01/csw/node.php?request=getrecordbyid&id=FR-236700019-2007-SPOT5-CIGAL_test
+GetRecordById: http://geograndest.net/tools/cswServer/0.07/csw/node.php?request=getrecordbyid&id=FR-236700019-2007-SPOT5-CIGAL_test
 
 
