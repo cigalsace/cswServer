@@ -1,2 +1,2 @@
-nodes/*
-csw/*
+nodes/_*
+csw/_*

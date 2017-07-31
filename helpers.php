@@ -18,21 +18,30 @@ function getFileidentifier($filename) {
     foreach ($namespaces as $key => $value) {
         $xml->registerXPathNamespace($key, $value);
     }
-    $fileidentifier = $xml->xpath($xpath_fileidentifier);
-    return $fileidentifier[0];
+    try {
+        $fileidentifier = $xml->xpath($xpath_fileidentifier);
+        return $fileidentifier[0];        
+    } catch (Exception $e) {
+        return False;
+    }
 }
 
 function getFiles($path, $files = array()){
     $fileext = pathinfo($path, PATHINFO_EXTENSION);
     if ($fileext == 'xml') {
-        $index = count($files) + 1;
-        $lstat = lstat($path);
-        $files[$index]['mtime'] = date('d/m/Y H:i:s', $lstat['mtime']);
-        $files[$index]['size'] = $lstat['size'];
-        $files[$index]['filetype'] = filetype($path);
-        $files[$index]['fileext'] = $fileext;
-        $files[$index]['path'] = $path;
-        $files[$index]['fileidentifier'] = getFileidentifier($path);
+        // Check if fileIdentifier exists to know if it's a metadata XML file
+        $fileIdentifier = getFileidentifier($path);
+        if ($fileIdentifier) {
+            // $index = count($files) + 1;
+            $lstat = lstat($path);
+            $file['mtime'] = date('d/m/Y H:i:s', $lstat['mtime']);
+            $file['size'] = $lstat['size'];
+            $file['filetype'] = filetype($path);
+            $file['fileext'] = $fileext;
+            $file['path'] = $path;
+            $file['fileidentifier'] = $fileIdentifier;
+            $files[] = $file;
+        }
     }
     // if $path is a directory => call getFiles() for each item (file or directory) of $path
     if (is_dir($path)) {
@@ -74,11 +83,15 @@ function filterFiles($files, $xpath, $value) {
         }
         $elts = $xmlDoc->xpath($xpath);
         $count = 0;
-        foreach ($elts as $elt) {
-            foreach ($search as $s) {
-                if (stripos($elt, $s) !== false) {
-                    $count++;
+        foreach ($search as $s) {
+            $match = false;
+            foreach ($elts as $elt) {                
+                if (stripos(trim($elt), trim($s)) !== false) {
+                    $match = true;
                 }
+            }
+            if ($match) {
+                $count++;
             }
         }
         if ($count == count($search)) {

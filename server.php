@@ -5,8 +5,7 @@ $request = strtolower(get('request'));
 if ($request == 'getrecords') {
     // Get files from $csw_path
 	$files = getFiles($csw_path);
-	$nb_files = count($files);
-    
+
     // Filter files list according to $constraintKeywords if defined
     foreach ($constraints as $key => $constraint) {
         $type = strtolower($key);
@@ -26,7 +25,7 @@ if ($request == 'getrecords') {
         $files = filterFiles($files, $xpath[$type], $matches[2]);
 	}
 
-	$numberOfRecordsMatched = count($files);
+	$numberOfRecordsMatched = count($files);   
 
 	// Get "maxrecords" parameter from URL
 	$maxrecords = get('maxrecords');
@@ -34,6 +33,7 @@ if ($request == 'getrecords') {
 	// Get "startposition" parameter from URL
 	$startposition = get('startposition') - 1;
 	
+    
 	// Nb results
 	$nb_results = count($files) - $startposition;
 	if ($nb_results > $maxrecords) {
@@ -41,18 +41,16 @@ if ($request == 'getrecords') {
 	}
 
 	$nextRecord = $startposition + $nb_results + 1;
-	// if ($nextRecord = 1) {
-	    // $nextRecord = 0;
-	// }
     if ($nextRecord > $numberOfRecordsMatched) {
         $nextRecord = $numberOfRecordsMatched+1;
     }
 
 	// Get XML files content
 	$xml_content = '';
-	for ($i = $startposition; $i < $startposition+$maxrecords; $i++) {
-        if ($i < count($files) AND is_file($files[$i+1]['path'])) {
-		    $xml_file = file($files[$i+1]['path']);
+	// for ($i = $startposition; $i < $startposition+$maxrecords; $i++) {
+	for ($i = $startposition; $i < $nb_results; $i++) {
+        if ($i < count($files) and is_file($files[$i]['path'])) {
+		    $xml_file = file($files[$i]['path']);
 		    unset($xml_file[0]);
 		    $xml = implode("\n", $xml_file);
 		    $xml_content .= $xml;
@@ -70,13 +68,13 @@ if ($request == 'getrecords') {
 	$xml .= '</csw:SearchResults>';
 	$xml .= '</csw:GetRecordsResponse>';
 
-	header('Content-Type: application/xml; charset=utf-8');
+	// header('Content-Type: application/xml; charset=utf-8');
 	echo $xml;
 	
 } elseif ($request == 'getrecordbyid') {
     // Get files from $csw_path
 	$files = getFiles($csw_path);
-	$nb_files = count($files);
+	// $nb_files = count($files);
     
     // Get "id" parameter from URL
 	$id = get('id');

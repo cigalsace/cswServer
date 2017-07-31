@@ -17,4 +17,5 @@ $xpath['mdcontactsorganism'] = '//gmd:contact/gmd:CI_ResponsibleParty/gmd:organi
 $xpath['datapointofcontactsname'] = '//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:individualName/gco:CharacterString/text()';
 $xpath['datapointofcontactsposition'] = '//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:positionName/gco:CharacterString/text()';
 $xpath['datapointofcontactsorganism'] = '//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString/text()';
+$xpath['contact'] = '//*/gmd:CI_ResponsibleParty/*/text()';
 $xpath['datamaintenancefrequency'] = '//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:resourceMaintenance/gmd:MD_MaintenanceInformation/gmd:maintenanceAndUpdateFrequency/gmd:MD_MaintenanceFrequencyCode/@codeListValue';

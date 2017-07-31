@@ -25,12 +25,11 @@ $constraints = array();
 
 // Configuration of capabilities (GetCapabilities XML response)
 // ServiceIdentification
-$ows_Title = 'Titre du flux';
+$ows_Title = 'Flux de test';
 $ows_Abstract = 'Résumé du flux.';
 $ows_Keywords[] = 'Géoportail';
 $ows_Keywords[] = 'Données ouvertes';
 $ows_Keywords[] = 'Grand Est';
-$ows_Keywords[] = 'GéoGrandEst';
 $ows_Keywords[] = 'Orthophotographie';
 $ows_Type = 'theme';
 $ows_ServiceType = 'CSW';
@@ -45,10 +44,10 @@ $ows_IndividualName = 'Guillaume RYCKELYNCK';
 $ows_PositionName = 'Administrator';
 $ows_Voice = '--';
 $ows_Facsimile = '--';
-$ows_DeliveryPoint = 'Adress';
-$ows_City = 'City';
-$ows_AdministrativeArea = 'Grand Est';
-$ows_PostalCode = '00000';
+$ows_DeliveryPoint = '1, place Adrien Zeller';
+$ows_City = 'STRASBOURG';
+$ows_AdministrativeArea = 'Région Grand Est';
+$ows_PostalCode = '67000';
 $ows_Country = 'France';
 $ows_ElectronicMailAddress = 'guillaume.ryckelynck@grandest.fr';
 $ows_HoursOfService = '--';
