@@ -70,6 +70,40 @@ function getPageURL() {
     return $pageURL;
 }
 
+// supprimer les accents d'un chaîne
+function _removeAccents($string) {
+    $accents_arr = array(
+        'à', 'â', 'ä', 'á', 'ã', 'å',
+        'î', 'ï', 'ì', 'í', 
+        'ô', 'ö', 'ò', 'ó', 'õ', 'ø', 
+        'ù', 'û', 'ü', 'ú', 
+        'é', 'è', 'ê', 'ë', 
+        'ç', 'ÿ', 'ñ',
+        'À', 'Â', 'Ä', 'Á', 'Ã', 'Å',
+        'Î', 'Ï', 'Ì', 'Í', 
+        'Ô', 'Ö', 'Ò', 'Ó', 'Õ', 'Ø', 
+        'Ù', 'Û', 'Ü', 'Ú', 
+        'É', 'È', 'Ê', 'Ë', 
+        'Ç', 'Ÿ', 'Ñ'
+    );
+    $noaccents_arr = array(
+        'a', 'a', 'a', 'a', 'a', 'a', 
+        'i', 'i', 'i', 'i', 
+        'o', 'o', 'o', 'o', 'o', 'o', 
+        'u', 'u', 'u', 'u', 
+        'e', 'e', 'e', 'e', 
+        'c', 'y', 'n', 
+        'A', 'A', 'A', 'A', 'A', 'A', 
+        'I', 'I', 'I', 'I', 
+        'O', 'O', 'O', 'O', 'O', 'O', 
+        'U', 'U', 'U', 'U', 
+        'E', 'E', 'E', 'E', 
+        'C', 'Y', 'N'
+    );
+    $string = str_replace($accents_arr, $noaccents_arr, $string);
+    return $string;
+}
+
 // Use of SimpleXML to filter files
 function filterFiles($files, $xpath, $value) {
     $search = explode('+', $value);
@@ -85,8 +119,9 @@ function filterFiles($files, $xpath, $value) {
         $count = 0;
         foreach ($search as $s) {
             $match = false;
-            foreach ($elts as $elt) {                
-                if (stripos(trim($elt), trim($s)) !== false) {
+            foreach ($elts as $elt) {      
+                // echo trim(_removeAccents($elt)) . ' - ' . trim(_removeAccents($s));
+                if (stripos(trim(_removeAccents($elt)), trim(_removeAccents($s))) !== false) {
                     $match = true;
                 }
             }

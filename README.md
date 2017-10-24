@@ -9,7 +9,7 @@ cswServer permet un moissonnage de fichiers XML par Geonetwork (v. 2.10 testée)
 cswServer est développé en PHP.
 
 
-## Principes
+## Principes:
 
 cswServer simule les requêtes de base "GetCapabilities", "DescribeRecord", "GetRecords" et "GetRecordById" à partir de fichiers XML stockés dans des répertoires sur le serveur.  
 Il est possible de configurer plusieurs noeuds ("nodes") ou points de moissonnage.  
@@ -33,7 +33,7 @@ Je souhaite créer un noeud appelé "super-node":
 - Je configure les informations de mon fichier "super-node.php"
 
 
-## Démonstration
+## Démonstration:
 
 GetCapabilities: http://cigalsace.net/cswServer/0.01/csw/node.php?VERSION=2.0.2&SERVICE=CSW&REQUEST=getcapabilities
 
@@ -44,17 +44,12 @@ GetRecordById: http://cigalsace.net/cswServer/0.01/csw/node.php?request=getrecor
 
 ## Versions
 
+### 0.7.2
+
+- Amélioration: la recherche ne tient pas compte de la casse (majuscule/minuscule) ni des accents.
+
 ### 0.7.1
 
 - Bug: si le dossier contient des XML qui ne sont pas des fiches de métadonnées, elles ne sont pas affichées, mais restent contabilisées dans le nombre de résultats retournés. 
-- Bug: correction de l'affichage des résultats lors d'une recherche (une fiche manquante).
-- Bug: la recherche AnyText ne renvoit pas le bon nombre de fiches en retour (si une fiche contient le mot recherché plus d'une fois elle n'est pas retournée).
-
-### 0.7.0
-
-- Renommage des versions: la version 0.07 devient la 0.7.0.
-- Bug: l'infinite scroll ne fonctionne pas dans cswReaderJS car erreur dans le calcul du nombre de résultats retournés.
-
-
-
-
+- Bug: correction de l'affichaes des résultats lors d'une recherche (une fiche manquante)
+- Bug: la recherche AnyText ne renvoit pas le bon nombre de fiches en retour (si une fiche contient le mot recherché plus d'une fois elle n'est pas retournée)

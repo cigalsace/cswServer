@@ -29,33 +29,55 @@ if ($request == 'getrecords') {
 
 	// Get "maxrecords" parameter from URL
 	$maxrecords = get('maxrecords');
+	if (!$maxrecords) {
+		$maxrecords = 20;
+	}
 
 	// Get "startposition" parameter from URL
 	$startposition = get('startposition') - 1;
-	
-    
+    if ($startposition < 0) {
+        $startposition = 0;
+    }
+    if ($startposition > $numberOfRecordsMatched) {
+        $startposition = $numberOfRecordsMatched;
+    }
+
 	// Nb results
-	$nb_results = count($files) - $startposition;
-	if ($nb_results > $maxrecords) {
+	$nb_results = $numberOfRecordsMatched - $startposition;
+	// echo $nb_results .' - '. $numberOfRecordsMatched .' - '. $startposition . ' - '. $maxrecords;
+	if ($nb_results < 0) {
+		$nb_results = 0;
+	}
+    if ($nb_results > $maxrecords) {
 		$nb_results = $maxrecords;
 	}
+	// echo $nb_results .' - '. $numberOfRecordsMatched .' - '. $startposition;
 
 	$nextRecord = $startposition + $nb_results + 1;
     if ($nextRecord > $numberOfRecordsMatched) {
         $nextRecord = $numberOfRecordsMatched+1;
     }
+    
+    $max_results = $startposition + $maxrecords;
+    if ($max_results > $numberOfRecordsMatched) {
+        $max_results = $numberOfRecordsMatched;
+    }
+    
+    // echo $startposition . ' ' . $nb_results . ' ' . $nextRecord . ' '. $numberOfRecordsMatched . ' ' . $max_results;
 
 	// Get XML files content
 	$xml_content = '';
 	// for ($i = $startposition; $i < $startposition+$maxrecords; $i++) {
-	for ($i = $startposition; $i < $nb_results; $i++) {
-        if ($i < count($files) and is_file($files[$i]['path'])) {
+	for ($i = $startposition; $i < $max_results; $i++) {
+        if ($i < $numberOfRecordsMatched and is_file($files[$i]['path'])) {
 		    $xml_file = file($files[$i]['path']);
 		    unset($xml_file[0]);
 		    $xml = implode("\n", $xml_file);
 		    $xml_content .= $xml;
 		}
 	}
+    
+    // echo $xml_content;
 
 	// Get timestamp
 	$timestamp = date(DATE_ISO8601);
